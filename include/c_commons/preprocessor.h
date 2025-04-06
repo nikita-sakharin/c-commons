@@ -116,6 +116,16 @@
 
 #define MAX(x, y) ((x) < (y) ? (y) : (x))
 
+/*
+#define MIDPOINT_TRUNC(x, y) (                         \
+    MIDPOINT_FLOOR(x, y)                               \
+    + ((MIDPOINT_FLOOR(x, y) < INTMAX_C(0)) & (x ^ y)) \
+)
+#define MIDPOINT_TRUNC(x, y) (                        \
+    MIDPOINT_CEIL(x, y)                               \
+    + ((MIDPOINT_CEIL(x, y) > INTMAX_C(0)) & (x ^ y)) \
+)
+*/
 #define MIDPOINT_TRUNC(x, y) (                              \
     (x) / INTMAX_C(2)                                       \
     + (y) / INTMAX_C(2)                                     \
