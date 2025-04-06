@@ -2,7 +2,7 @@
 `multiplyHigh` (`mulHi`)<br/>
 `isMultipleOf`, `nextMultipleOf`, `prevMultipleOf`<br/>
 [`icopysign`](https://gcc.gnu.org/onlinedocs/gfortran/SIGN.html)<br/>
-`isignbit` (docs.gl, nvidia.com, khronos.org, numpy.org, opencl.org, vulkan.org)<br/>
+`isignbit` (docs.gl, nvidia.com, [OpenCL](https://registry.khronos.org/OpenCL/specs/3.0-unified/html/OpenCL_C.html), numpy.org, opencl.org, vulkan.org)<br/>
 `ceilDivMod`, `euclidDivMod`, `floorDivMod`
 
 - [ISO/IEC Part 1: Integer and floating point arithmetic](http://www.open-std.org/jtc1/sc22/wg11/docs/n519.pdf)
