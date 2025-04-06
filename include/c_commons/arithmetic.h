@@ -172,22 +172,27 @@ inline uintmax_t umaxceilDiv(
     return x / y + (x % y != UINTMAX_C(0));
 }
 
+#define ceilDiv(x, y) TYPE_GENERIC_INTEGER_2(ceilDiv, x, y)
+
 inline int ceilMod(register const int x, register const int y) {
     assert(y != 0);
     register const int mod = x % y;
     return isSameSign(x, y) && mod != 0 ? mod - y : mod;
+    // return !isSameSign(x, y) || mod == 0 ? mod : mod - y;
 }
 
 inline long lceilMod(register const long x, register const long y) {
     assert(y != 0L);
     register const long mod = x % y;
     return isSameSign(x, y) && mod != 0L ? mod - y : mod;
+    // return !isSameSign(x, y) || mod == 0L ? mod : mod - y;
 }
 
 inline llong llceilMod(register const llong x, register const llong y) {
     assert(y != 0LL);
     register const llong mod = x % y;
     return isSameSign(x, y) && mod != 0LL ? mod - y : mod;
+    // return !isSameSign(x, y) || mod == 0LL ? mod : mod - y;
 }
 
 inline intmax_t imaxceilMod(
@@ -197,7 +202,10 @@ inline intmax_t imaxceilMod(
     assert(y != INTMAX_C(0));
     register const intmax_t mod = x % y;
     return isSameSign(x, y) && mod != INTMAX_C(0) ? mod - y : mod;
+    // return !isSameSign(x, y) || mod == INTMAX_C(0) ? mod : mod - y;
 }
+
+#define ceilMod(x, y) TYPE_GENERIC_SIGNED_INTEGER_2(ceilMod, x, y)
 
 inline int clamp(
     register const int x,
@@ -999,8 +1007,6 @@ inline uintmax_t imaxunsignedAbs(register const intmax_t x) {
 
 #define unsignedAbs(x) TYPE_GENERIC_SIGNED_INTEGER_1(unsignedAbs, x)
 
-#define ceilDiv(x, y) TYPE_GENERIC_INTEGER_2(ceilDiv, x, y)
-#define ceilMod(x, y) TYPE_GENERIC_SIGNED_INTEGER_2(ceilMod, x, y)
 #define dim(x, y) TYPE_GENERIC_INTEGER_2(dim, x, y)
 #define euclidDiv(x, y) TYPE_GENERIC_INTEGER_2(euclidDiv, x, y)
 #define euclidMod(x, y) TYPE_GENERIC_INTEGER_2(euclidMod, x, y)
