@@ -126,10 +126,13 @@
     - ((MIDPOINT_CEIL(x, y) > INTMAX_C(0)) & (x ^ y)) \
 )
 */
-#define MIDPOINT_TRUNC(x, y) (                              \
-    (x) / INTMAX_C(2)                                       \
-    + (y) / INTMAX_C(2)                                     \
-    + ((x) % INTMAX_C(2) + (y) % INTMAX_C(2)) / INTMAX_C(2) \
+#define MIDPOINT_TRUNC(x, y) (                                \
+    (x) / INTMAX_C(2)                                         \
+    + (y) / INTMAX_C(2)                                       \
+    + (                                                       \
+        ((x) % INTMAX_C(2) + (y) % INTMAX_C(2)) * INTMAX_C(2) \
+        - SIGN((x) / INTMAX_C(2) + (y) / INTMAX_C(2))         \
+    ) / INTMAX_C(3)                                           \
 )
 
 #define MIN(x, y) ((x) > (y) ? (y) : (x))
