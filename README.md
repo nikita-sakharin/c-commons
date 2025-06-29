@@ -62,13 +62,13 @@
 - `wrapping_*`, ~~`overflowing_*`~~
 - `saturating_*`
 
-`string.h`:<br/>
+# `string.h`:<br/>
 `strFormat`, `strNFormat`, `strReverse`, `strNReverse`
 
-`bin_tree.h`:<br/>
+# `bin_tree.h`:<br/>
 `restrict` for `left` and `right` but not for `parent`
 
-`type_generic.h`:<br/>
+# `type_generic.h`:<br/>
 `TYPE_GENERIC_POINTER`
 
 # `utility.h`:<br/>
