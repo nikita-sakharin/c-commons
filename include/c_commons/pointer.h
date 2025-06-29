@@ -22,7 +22,8 @@
 #include <stdint.h> // PTRDIFF_MAX, PTRDIFF_MIN
 #include <stdlib.h> // abs
 
-#include <c_commons/arithmetic.h> // abs, inRangeClosed, sign
+#include <c_commons/arithmetic.h> // abs, sign
+#include <c_commons/debug.h> // checkSize
 #include <c_commons/preprocessor.h> // MAX, MIN, COMPARE
 
 inline int ptrCompare(
@@ -41,8 +42,7 @@ inline ptrdiff_t ptrDifference(
     register const void * const ptr2,
     register const size_t size
 ) {
-    assert((ptr1 == NULL) == (ptr2 == NULL)
-        && inRangeClosed(size, 1U, PTRDIFF_MAX)
+    assert((ptr1 == NULL) == (ptr2 == NULL) && checkSize(size)
         && (const char *) ptr1 - (const char *) ptr2 != PTRDIFF_MIN
         && sign((const char *) ptr1 - (const char *) ptr2) == COMPARE(ptr1, ptr2)
         && ((const char *) ptr1 - (const char *) ptr2) % (ptrdiff_t) size == 0
@@ -101,8 +101,8 @@ inline void *ptrOffset(
     register const ptrdiff_t off,
     register const size_t size
 ) {
-    assert((ptr != NULL || off == 0) && inRangeClosed(size, 1U, PTRDIFF_MAX)
-        && off != PTRDIFF_MIN && abs(off) <= PTRDIFF_MAX / (ptrdiff_t) size
+    assert((ptr != NULL || off == 0) && off != PTRDIFF_MIN && checkSize(size)
+        && abs(off) <= PTRDIFF_MAX / (ptrdiff_t) size
         && sign(off) == COMPARE((const char *) ptr, (const char *) ptr + off * size)
         && (ptr == NULL || (const char *) ptr + off * size != NULL)
     );
@@ -125,7 +125,7 @@ inline void *ptrDecrement(
     register const void * const ptr,
     register const size_t size
 ) {
-    assert(ptr != NULL && inRangeClosed(size, 1U, PTRDIFF_MAX)
+    assert(ptr != NULL && checkSize(size)
         && (const char *) ptr - size < (const char *) ptr
         && (const char *) ptr - size != NULL
     );
@@ -136,7 +136,7 @@ inline void *ptrIncrement(
     register const void * const ptr,
     register const size_t size
 ) {
-    assert(ptr != NULL && inRangeClosed(size, 1U, PTRDIFF_MAX)
+    assert(ptr != NULL && checkSize(size)
         && (const char *) ptr < (const char *) ptr + size
     );
     return ptrOffset(ptr, 1, size);
@@ -147,8 +147,7 @@ inline void *ptrMidpoint(
     register const void * const ptr2,
     register const size_t size
 ) {
-    assert((ptr1 == NULL) == (ptr2 == NULL)
-        && inRangeClosed(size, 1U, PTRDIFF_MAX)
+    assert((ptr1 == NULL) == (ptr2 == NULL) && checkSize(size)
         && (const char *) ptr1 - (const char *) ptr2 != PTRDIFF_MIN
         && sign((const char *) ptr1 - (const char *) ptr2) == COMPARE(ptr1, ptr2)
         && ((const char *) ptr1 - (const char *) ptr2) % (ptrdiff_t) size == 0

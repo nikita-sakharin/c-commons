@@ -19,6 +19,7 @@
 
 #include <stdint.h> // INTMAX_C, INTMAX_MIN, UINTMAX_C, UINTMAX_MAX
 
+// INTMAX_MIN, TO_UNSIGNED, UNSIGNED_ABS
 #define ABS(x) ((x) < INTMAX_C(0) ? -(x) : (x))
 
 #define ABS_DIFF(x, y) ((x) < (y) ? (y) - (x) : (x) - (y))
@@ -29,6 +30,7 @@
 
 #define COMPARE(x, y) ((x) < (y) ? INTMAX_C(-1) : (x) > (y))
 
+// #define DIM(x, y) (MAX(x, y) - (y))
 #define DIM(x, y) ((x) > (y) ? (x) - (y) : INTMAX_C(0))
 
 // #define FLIP_ALL(x) (~(x))
@@ -114,15 +116,27 @@
 
 #define MAX(x, y) ((x) < (y) ? (y) : (x))
 
-#define MIDPOINT_TRUNC(x, y) (                              \
-    (x) / INTMAX_C(2)                                       \
-    + (y) / INTMAX_C(2)                                     \
-    + ((x) % INTMAX_C(2) + (y) % INTMAX_C(2)) / INTMAX_C(2) \
+/*
+#define MIDPOINT_TRUNC(x, y) (                         \
+    MIDPOINT_FLOOR(x, y)                               \
+    + ((MIDPOINT_FLOOR(x, y) < INTMAX_C(0)) & (x ^ y)) \
+)
+#define MIDPOINT_TRUNC(x, y) (                        \
+    MIDPOINT_CEIL(x, y)                               \
+    - ((MIDPOINT_CEIL(x, y) > INTMAX_C(0)) & (x ^ y)) \
+)
+*/
+#define MIDPOINT_TRUNC(x, y) (                                \
+    (x) / INTMAX_C(2)                                         \
+    + (y) / INTMAX_C(2)                                       \
+    + (                                                       \
+        ((x) % INTMAX_C(2) + (y) % INTMAX_C(2)) * INTMAX_C(2) \
+        - SIGN((x) / INTMAX_C(2) + (y) / INTMAX_C(2))         \
+    ) / INTMAX_C(3)                                           \
 )
 
 #define MIN(x, y) ((x) > (y) ? (y) : (x))
 
-// #define NEGATIVE_ABS(x) ((x) < INTMAX_C(0) ? (x) : -(x))
 #define NEGATIVE_ABS(x) ((x) > INTMAX_C(0) ? -(x) : (x))
 
 // #define ROTATE_LEFT(x, shift)

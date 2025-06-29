@@ -1,29 +1,32 @@
-`arithmetic.h`:<br/>
+# `arithmetic.h`:<br/>
 `multiplyHigh` (`mulHi`)<br/>
 `isMultipleOf`, `nextMultipleOf`, `prevMultipleOf`<br/>
 [`icopysign`](https://gcc.gnu.org/onlinedocs/gfortran/SIGN.html)<br/>
-`isignbit` (docs.gl, nvidia.com, khronos.org, numpy.org, opencl.org, vulkan.org)<br/>
+`isignbit` (docs.gl, nvidia.com, [OpenCL](https://registry.khronos.org/OpenCL/specs/3.0-unified/html/OpenCL_C.html), numpy.org, opencl.org, vulkan.org)<br/>
 `ceilDivMod`, `euclidDivMod`, `floorDivMod`
 
 - [ISO/IEC Part 1: Integer and floating point arithmetic](http://www.open-std.org/jtc1/sc22/wg11/docs/n519.pdf)
 - [ISO/IEC Part 2: Elementary numerical functions](http://www.open-std.org/jtc1/sc22/wg11/docs/n462.pdf)
 - [ISO/IEC Part 3: Complex integer and floating point arithmetic and complex elementary numerical functions](http://www.open-std.org/jtc1/sc22/wg11/docs/n497.pdf)
 
-`bit.h`:<br/>
+# `bit.h`:<br/>
 {`bitCount`|`popCount`}<br/>
 `rotateLeft`, `rotateRight`<br/>
 `clear` (~~`reset`~~), `set`, `flip`<br/>
  `getBit` (`testBit`):<br/>
- - `testAll` (`isAll`, ~~`getAll`~~)
- - `testAny` (`isAny`, ~~`getAny`~~)
- - `testNone` (`isNone`, ~~`getNone`~~)
+ - `testAll` (`isAll`, ~~`getAll`~~, [Ruby](https://ruby-doc.org/current/Integer.html#method-i-allbits-3F))
+ - `testAny` (`isAny`, ~~`getAny`~~, [Ruby](https://ruby-doc.org/current/Integer.html#method-i-anybits-3F))
+ - `testNone` (`isNone`, ~~`getNone`~~, [Ruby](https://ruby-doc.org/current/Integer.html#method-i-nobits-3F))
 
 `(are|have|has|is)SameSign[um]`
 
-`debug.h` (`check.h`):<br/>
+# `ctype.h`:<br/>
+`isAscii`, `toAscii`
+
+# `debug.h` (`check.h`):<br/>
 `checkArray` (`checkPointer`), `checkIndexSize`, `checkLengthSize`
 
-`error_handling.h`:<br/>
+# `error_handling.h`:<br/>
 Макрос `EXIT_IF` можно использовать в следующей ситуации: было выделено несколько ресурсов, далее произошла ошибка, `GOTO_IF` перекинул в место, где выделенные ресурсы освобождаются. Когда вызываем функцию для освобождения ресурса, то возвращаемое значение проверяем уже с помощью `EXIT_IF`, а не с помощью `GOTO_IF`. В данном случае напрашивается аналогия с C++ `std::terminate`, которая вызывается, если при обработке исключения, было выброшено еще одно. Возможно, в рамках данной аналогии, имеет смысл вместо функции `exit`, использовать `_Exit`, или даже `abort`. Но вариант, просто `exit` видится более органичным, более интуитивным, так как в точности копирует `return` в `main` (вызывает `atexit` и закрывает файловые дискрипторы). С другой стороны вариант с функцией `abort` ближе по семантике к `std::terminate`. Вариант при котором будет отдельно макрос с `abort` и отдельно с `exit` кажется откровенно спорным.
 
 Так же имеет смысл рассмотреть макрос для вывода сообщений об ошибках в формате POSIX. Например:<br/>
@@ -42,7 +45,7 @@
 [Errors](https://www.gnu.org/prep/standards/html_node/Errors.html)<br/>
 [Error Messages](https://www.gnu.org/software/libc/manual/html_node/Error-Messages.html)
 
-`math.h`:<br/>
+# `math.h`:<br/>
 `fclampf`, `fclamp`, `fclampl`, `lerp`, `saturate`<br/>
 `toDegrees`, `toRadians`<br/>
 `DBL_1_PI`, `DBL_2_PI`, `DBL_2_SQRTPI`, `DBL_E`, `DBL_LN10`, `DBL_LN2`, `DBL_LOG10E`, `DBL_LOG2E`, `DBL_PHI`, `DBL_PI`, `DBL_PI_2`, `DBL_PI_4`, `DBL_SQRT1_2`, `DBL_SQRT2`<br/>
@@ -50,21 +53,53 @@
 `ulp`, `nextDown`, `nextUp`, `union { uint32_t u32; flt f; }`<br/>
 `random`
 
-`numeric.h`:<br/>
+# `numeric.h`:<br/>
 `gcd`, `lcm`, `midpoint`, `fmidpoint`, `isqrt`, `icbrt`
 
-`preprocessor.h`:<br/>
+# `preprocessor.h`:<br/>
 [Integer Properties](https://www.gnu.org/software/gnulib/manual/html_node/Integer-Properties.html)
 - `check_*` (`checked_*`), `is_*_overflow`, ~~`is_*_undefined`~~
 - `wrapping_*`, ~~`overflowing_*`~~
 - `saturating_*`
 
-`string.h`:<br/>
+# `string.h`:<br/>
 `strFormat`, `strNFormat`, `strReverse`, `strNReverse`
 
-`utility.h`:<br/>
+# `bin_tree.h`:<br/>
+`restrict` for `left` and `right` but not for `parent`
+
+# `type_generic.h`:<br/>
+`TYPE_GENERIC_POINTER`
+
+# `utility.h`:<br/>
+`memSwap`:
+- Если в двух файлах используется эта функция, в одном файле `NDEBUG` объявлен, а в другом нет, то это породит `undefined behavior`
+- изменить имена переменных `s1` и `s2` на `src1` и `src2` ???
+- изменить имя переменной `n` на `size` или `length` (контрпример: `strn{cat,cmp,cpy,len}`) ???
+- изменить имя переменной `offset` на `step` ???
+- сделать `const`-антной переменную `size_t n`. Вместо `n -= offset` использовать `offset = min(LEVEL1_DCACHE_LINESIZE, (size_t) (end1 - s1))` ???
+- На данный момент используются разные реализации в зависимости от макроса `NDEBUG`. Будет лучше подставлять разные реализацию для `inline` и `extern` ???
+
+Три уровня интерфейса:
+- Два указателя (`mem*`)
+- Элемент массива и указатель (`elemGet`, `elemSet`, `elem*`/`elem*Mem`) ???
+- Два элемента массива (`arr*`/`arrElem*`/`array*`/`elem*Elem`/`arrayCompareMax`)
+- Все элементы массива (`arrMax`/`arrElemMax`/`arrayMax`) ???
+
 `elemCompareEqual`, `elemCompareGreater`, `elemCompareGreaterEqual`, `elemCompareLess`, `elemCompareLessEqual`, `elemCompareNotEqual`<br/>
 `memCompareEqual`, `memCompareGreater`, `memCompareGreaterEqual`, `memCompareLess`, `memCompareLessEqual`, `memCompareNotEqual`<br/>
 `memReverse`<br/>
 `memRotate` (`memExchange`, `memShift`)<br/>
 `ptrRemoveConst` (`ptrConstCast`), `ptrRemoveConstVolatile` (`ptrConstVolatileCast`), `ptrRemoveVolatile` (`ptrVolatileCast`)
+
+# Тестирование:<br/>
+- Два `goal` синонима друг другу: `check` и `test`.
+- Следуя практикам `xUnit` выделяются файлы являющиеся `suit`-ами и функции внутри этих файлов, являющиеся `case`-ами, которые тестируют функции из `./src` и `./include`.
+- Как должен называться файл содержащий тесты для функций находящихся в `./src/arithmetic.c` и `./include/arithmetic.h`? Существует два варианта:
+  - `./test/arithmetic.test.c`
+  - `./test/arithmetic.c`
+- Как должен называться исполняемый файл, скомпилированный из файлов предыдущего пункта? Опять же два варианта:
+  - `./test/arithmetic.test.out`
+  - `./test/arithmetic.out`
+- Каждый файл из папки `./test` (т.е. `suit`) содержит функцию `main` в которой запускаети все тестовые функции (`case`).
+- Могут ли в папке `./test` существовать кроме самих `suit`-ов еще и другие файлы? Если да, то потребуется продумать где лежат не только `.c`-файлы, но и местоположение `.h`-файлов. А это значит, что кроме папки `./include` потребуется еще аналогичная папка для заголовочников, которые используются только в тестах. **ОЧЕНЬ ПЛОХАЯ ИДЕЯ.**
