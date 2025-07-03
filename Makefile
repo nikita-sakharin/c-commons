@@ -34,20 +34,20 @@ CFLAGS=-I ./include -Wabi -Wall -Walloc-zero -Walloca -Wanalyzer-too-complex   \
     -Wunused-const-variable=2 -Wunused-macros -Wvector-operation-performance   \
     -Wvla -Wwrite-strings -fanalyzer -finput-charset=UTF-8 -pedantic-errors    \
     -std=c23
-# -Waggregate-return -Wattribute-alias=2 -Wbidi-chars=any,ucn
-# -Wdeclaration-after-statement -Winvalid-utf8 -Wopenacc-parallelism
-# -Wstack-protector -Wsystem-headers -Wtraditional -Wtraditional-conversion
-# -Wtrampolines -Wtrivial-auto-var-init
+# -Waggregate-return -Wanalyzer-symbol-too-complex -Wattribute-alias=2
+# -Wbidi-chars=any,ucn -Wdeclaration-after-statement -Winvalid-utf8
+# -Wopenacc-parallelism -Wstack-protector -Wsystem-headers -Wtraditional
+# -Wtraditional-conversion -Wtrampolines -Wtrivial-auto-var-init
 LDFLAGS=
 LDLIBS=-lm
 SOURCES::=$(shell find ./src -name '*.c' -type f -print)
 HEADERS::=$(shell find ./include -name '*.h' -type f -print)
 OBJECTS::=$(SOURCES:.c=.o)
-EXECUTABLE::=libc-commons.a
+LIBRARY::=libc-commons.a
 
 .PHONY: all clean debug release
 
-all: $(SOURCES) $(EXECUTABLE)
+all: $(SOURCES) $(LIBRARY)
 
 debug: CFLAGS+=-Og -g
 debug: all
@@ -55,11 +55,11 @@ release: CFLAGS+=-DNDEBUG -O3 -flto -march=native -mtune=native -s
 release: LDFLAGS+=-O3 -flto -march=native -mtune=native -s
 release: all
 
-$(EXECUTABLE): $(OBJECTS)
+$(LIBRARY): $(OBJECTS)
 	$(CC) $(LDFLAGS) $(OBJECTS) $(LDLIBS) -o $@
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	$(RM) $(OBJECTS) $(EXECUTABLE)
+	$(RM) $(OBJECTS) $(LIBRARY)
