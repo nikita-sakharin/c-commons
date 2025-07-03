@@ -18,7 +18,7 @@ AR=ar
 CC=gcc
 RM=rm -frd
 ARFLAGS=-rcs
-CFLAGS=-I ./include -Wall -Walloc-zero -Walloca -Wanalyzer-too-complex         \
+CFLAGS=-I ./include -Wabi -Wall -Walloc-zero -Walloca -Wanalyzer-too-complex   \
     -Warith-conversion -Warray-bounds=2 -Wbad-function-cast -Wc++-compat       \
     -Wcast-align=strict -Wcast-qual -Wconversion -Wdate-time                   \
     -Wdisabled-optimization -Wdouble-promotion -Wduplicated-branches           \
@@ -34,22 +34,22 @@ CFLAGS=-I ./include -Wall -Walloc-zero -Walloca -Wanalyzer-too-complex         \
     -Wunused-const-variable=2 -Wunused-macros -Wvector-operation-performance   \
     -Wvla -Wwrite-strings -fanalyzer -finput-charset=UTF-8 -pedantic-errors    \
     -std=c23
-# -Waggregate-return -Wattribute-alias=2 -Wbidi-chars=any,ucn
-# -Wdeclaration-after-statement -Winvalid-utf8 -Wopenacc-parallelism
-# -Wstack-protector -Wsystem-headers -Wtraditional -Wtraditional-conversion
-# -Wtrampolines -Wtrivial-auto-var-init
+# -Waggregate-return -Wanalyzer-symbol-too-complex -Wattribute-alias=2
+# -Wbidi-chars=any,ucn -Wdeclaration-after-statement -Winvalid-utf8
+# -Wopenacc-parallelism -Wstack-protector -Wsystem-headers -Wtraditional
+# -Wtraditional-conversion -Wtrampolines -Wtrivial-auto-var-init
 LDFLAGS=
 LDLIBS=-lm
-SOURCES=$(shell find ./src -name '*.c' -type f -print)
-HEADERS=$(shell find ./include -name '*.h' -type f -print)
-OBJECTS=$(SOURCES:.c=.o)
-EXECUTABLE=libc-commons.a
-TEST_SOURCES=$(shell find ./test -name '*.c' -type f -print) # '*.test.c'
-TEST_EXECUTABLE=$(TEST_SOURCES:.c=)
+SOURCES::=$(shell find ./src -name '*.c' -type f -print)
+HEADERS::=$(shell find ./include -name '*.h' -type f -print)
+OBJECTS::=$(SOURCES:.c=.o)
+LIBRARY::=libc-commons.a
+TEST_SOURCES::=$(shell find ./test -name '*.test.c' -type f -print)
+TEST_EXECUTABLE::=$(TEST_SOURCES:.c=)
 
-.PHONY: all clean
+.PHONY: all clean debug release
 
-all: $(SOURCES) $(EXECUTABLE)
+all: $(SOURCES) $(LIBRARY)
 
 debug: CFLAGS+=-Og -g
 debug: all
@@ -58,7 +58,7 @@ release: LDFLAGS+=-O3 -flto -march=native -mtune=native -s
 release: all
 
 # out-of-source `build` directory
-$(EXECUTABLE): $(OBJECTS)
+$(LIBRARY): $(OBJECTS)
 	$(CC) $(LDFLAGS) $(OBJECTS) $(LDLIBS) -o $@
 
 %.o: %.c
@@ -71,4 +71,4 @@ check: $(TEST_EXECUTABLE)
 	$(TEST_EXECUTABLE)
 
 clean:
-	$(RM) $(OBJECTS) $(EXECUTABLE) $(TEST_EXECUTABLE)
+	$(RM) $(OBJECTS) $(LIBRARY) $(TEST_EXECUTABLE)
