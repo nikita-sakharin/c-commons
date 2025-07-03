@@ -45,7 +45,7 @@ HEADERS=$(shell find ./include -name '*.h' -type f -print)
 OBJECTS=$(SOURCES:.c=.o)
 EXECUTABLE=libc-commons.a
 
-.PHONY: all clean
+.PHONY: all clean debug release
 
 all: $(SOURCES) $(EXECUTABLE)
 
