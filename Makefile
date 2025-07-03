@@ -18,7 +18,7 @@ AR=ar
 CC=gcc
 RM=rm -frd
 ARFLAGS=-rcs
-CFLAGS=-I ./include -Wall -Walloc-zero -Walloca -Wanalyzer-too-complex         \
+CFLAGS=-I ./include -Wabi -Wall -Walloc-zero -Walloca -Wanalyzer-too-complex   \
     -Warith-conversion -Warray-bounds=2 -Wbad-function-cast -Wc++-compat       \
     -Wcast-align=strict -Wcast-qual -Wconversion -Wdate-time                   \
     -Wdisabled-optimization -Wdouble-promotion -Wduplicated-branches           \
