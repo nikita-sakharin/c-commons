@@ -29,6 +29,15 @@ extern inline ullong ullabsDiff(ullong, ullong);
 extern inline uintmax_t imaxabsDiff(intmax_t, intmax_t);
 extern inline uintmax_t umaxabsDiff(uintmax_t, uintmax_t);
 
+extern inline bool (between)(int, int, int);
+extern inline bool ubetween(uint, uint, uint);
+extern inline bool lbetween(long, long, long);
+extern inline bool ulbetween(ulong, ulong, ulong);
+extern inline bool llbetween(llong, llong, llong);
+extern inline bool ullbetween(ullong, ullong, ullong);
+extern inline bool imaxbetween(intmax_t, intmax_t, intmax_t);
+extern inline bool umaxbetween(uintmax_t, uintmax_t, uintmax_t);
+
 extern inline int (ceilDiv)(int, int);
 extern inline uint uceilDiv(uint, uint);
 extern inline long lceilDiv(long, long);
@@ -110,15 +119,6 @@ extern inline int (icopysign)(int, int);
 extern inline long licopysign(long, long);
 extern inline llong llicopysign(llong, llong);
 extern inline intmax_t imaxicopysign(intmax_t, intmax_t);
-
-extern inline bool (inClosedRange)(int, int, int);
-extern inline bool uinClosedRange(uint, uint, uint);
-extern inline bool linClosedRange(long, long, long);
-extern inline bool ulinClosedRange(ulong, ulong, ulong);
-extern inline bool llinClosedRange(llong, llong, llong);
-extern inline bool ullinClosedRange(ullong, ullong, ullong);
-extern inline bool imaxinClosedRange(intmax_t, intmax_t, intmax_t);
-extern inline bool umaxinClosedRange(uintmax_t, uintmax_t, uintmax_t);
 
 extern inline bool (inRange)(int, int, int);
 extern inline bool uinRange(uint, uint, uint);

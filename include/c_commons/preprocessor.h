@@ -24,6 +24,8 @@
 
 #define ABS_DIFF(x, y) ((x) < (y) ? (y) - (x) : (x) - (y))
 
+#define BETWEEN(x, a, b) ((x) >= (a) && (x) <= (b))
+
 #define CLAMP(x, a, b) ((x) < (a) ? (a) : (x) > (b) ? (b) : (x))
 
 #define CLEAR_ALL(x) ((x) ^ (x))
@@ -34,8 +36,6 @@
 #define DIM(x, y) ((x) > (y) ? (x) - (y) : INTMAX_C(0))
 
 // #define FLIP_ALL(x) (~(x))
-
-#define IN_CLOSED_RANGE(x, a, b) ((x) >= (a) && (x) <= (b))
 
 #define IN_RANGE(x, a, b) ((x) >= (a) && (x) < (b))
 

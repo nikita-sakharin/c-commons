@@ -21,7 +21,7 @@
 #include <stddef.h> // NULL, ptrdiff_t, size_t
 #include <stdint.h> // PTRDIFF_MAX, PTRDIFF_MIN
 
-#include <c_commons/arithmetic.h> // inRangeClosed
+#include <c_commons/arithmetic.h> // between
 
 // isMemory
 inline bool checkMemory(
@@ -43,7 +43,7 @@ inline bool checkMemoryCompare(
 
 // isSize
 inline bool checkSize(register const size_t size) {
-    return inRangeClosed(size, 1U, PTRDIFF_MAX);
+    return between(size, 1U, PTRDIFF_MAX);
 }
 
 #endif // C_COMMONS_DEBUG_H

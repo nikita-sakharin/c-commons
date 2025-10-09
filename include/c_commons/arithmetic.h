@@ -123,6 +123,80 @@ inline uintmax_t umaxabsDiff(
 
 #define absDiff(x, y) TYPE_GENERIC_INTEGER_2(absDiff, x, y)
 
+inline bool between(
+    register const int x,
+    register const int a,
+    register const int b
+) {
+    assert(a <= b);
+    return BETWEEN(x, a, b);
+}
+
+inline bool ubetween(
+    register const uint x,
+    register const uint a,
+    register const uint b
+) {
+    assert(a <= b);
+    return BETWEEN(x, a, b);
+}
+
+inline bool lbetween(
+    register const long x,
+    register const long a,
+    register const long b
+) {
+    assert(a <= b);
+    return BETWEEN(x, a, b);
+}
+
+inline bool ulbetween(
+    register const ulong x,
+    register const ulong a,
+    register const ulong b
+) {
+    assert(a <= b);
+    return BETWEEN(x, a, b);
+}
+
+inline bool llbetween(
+    register const llong x,
+    register const llong a,
+    register const llong b
+) {
+    assert(a <= b);
+    return BETWEEN(x, a, b);
+}
+
+inline bool ullbetween(
+    register const ullong x,
+    register const ullong a,
+    register const ullong b
+) {
+    assert(a <= b);
+    return BETWEEN(x, a, b);
+}
+
+inline bool imaxbetween(
+    register const intmax_t x,
+    register const intmax_t a,
+    register const intmax_t b
+) {
+    assert(a <= b);
+    return BETWEEN(x, a, b);
+}
+
+inline bool umaxbetween(
+    register const uintmax_t x,
+    register const uintmax_t a,
+    register const uintmax_t b
+) {
+    assert(a <= b);
+    return BETWEEN(x, a, b);
+}
+
+#define between(x, a, b) TYPE_GENERIC_INTEGER_3(between, x, a, b)
+
 inline int ceilDiv(register const int x, register const int y) {
     assert(y != 0);
     return CEIL_DIV(x, y);
@@ -557,80 +631,6 @@ inline uintmax_t umaxfloorMod(
     assert(y != UINTMAX_C(0));
     return x % y;
 }
-
-inline bool inClosedRange(
-    register const int x,
-    register const int a,
-    register const int b
-) {
-    assert(a <= b);
-    return IN_CLOSED_RANGE(x, a, b);
-}
-
-inline bool uinClosedRange(
-    register const uint x,
-    register const uint a,
-    register const uint b
-) {
-    assert(a <= b);
-    return IN_CLOSED_RANGE(x, a, b);
-}
-
-inline bool linClosedRange(
-    register const long x,
-    register const long a,
-    register const long b
-) {
-    assert(a <= b);
-    return IN_CLOSED_RANGE(x, a, b);
-}
-
-inline bool ulinClosedRange(
-    register const ulong x,
-    register const ulong a,
-    register const ulong b
-) {
-    assert(a <= b);
-    return IN_CLOSED_RANGE(x, a, b);
-}
-
-inline bool llinClosedRange(
-    register const llong x,
-    register const llong a,
-    register const llong b
-) {
-    assert(a <= b);
-    return IN_CLOSED_RANGE(x, a, b);
-}
-
-inline bool ullinClosedRange(
-    register const ullong x,
-    register const ullong a,
-    register const ullong b
-) {
-    assert(a <= b);
-    return IN_CLOSED_RANGE(x, a, b);
-}
-
-inline bool imaxinClosedRange(
-    register const intmax_t x,
-    register const intmax_t a,
-    register const intmax_t b
-) {
-    assert(a <= b);
-    return IN_CLOSED_RANGE(x, a, b);
-}
-
-inline bool umaxinClosedRange(
-    register const uintmax_t x,
-    register const uintmax_t a,
-    register const uintmax_t b
-) {
-    assert(a <= b);
-    return IN_CLOSED_RANGE(x, a, b);
-}
-
-#define inClosedRange(x, a, b) TYPE_GENERIC_INTEGER_3(inClosedRange, x, a, b)
 
 inline bool inRange(
     register const int x,
