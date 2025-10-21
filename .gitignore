@@ -7,7 +7,9 @@
 *.gch
 *.idb
 *.ilk
+*.la
 *.lib
+*.lo
 *.log
 *.map
 *.o
