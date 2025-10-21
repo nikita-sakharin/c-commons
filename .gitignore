@@ -16,3 +16,4 @@
 *.pdb
 *.so
 *.stackdump
+.DS_Store
