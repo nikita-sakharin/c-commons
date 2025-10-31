@@ -9,6 +9,7 @@
 *.idb
 *.ilk
 *.la
+*.lai
 *.lib
 *.lo
 *.log
