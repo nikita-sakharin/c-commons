@@ -50,7 +50,7 @@
 `toDegrees`, `toRadians`<br/>
 `DBL_1_PI`, `DBL_2_PI`, `DBL_2_SQRTPI`, `DBL_E`, `DBL_LN10`, `DBL_LN2`, `DBL_LOG10E`, `DBL_LOG2E`, `DBL_PHI`, `DBL_PI`, `DBL_PI_2`, `DBL_PI_4`, `DBL_SQRT1_2`, `DBL_SQRT2`<br/>
 `ulp`, `nextDown`, `nextUp`, `union { uint32_t u32; flt f; }`<br/>
-`isClose` ([Python](https://docs.python.org/3/library/math.html#math.isclose), [Fortran](https://stdlib.fortran-lang.org/interface/is_close.html))<br/>
+`isClose` ([Fortran](https://stdlib.fortran-lang.org/interface/is_close.html), [NumPy](https://numpy.org/devdocs/reference/generated/numpy.isclose.html), [Python](https://docs.python.org/3/library/math.html#math.isclose))<br/>
 `isInteger` (~~`isWhole`~~)<br/>
 `random`
 
