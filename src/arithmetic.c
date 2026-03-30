@@ -184,15 +184,10 @@ extern inline long lnegativeAbs(long);
 extern inline llong llnegativeAbs(llong);
 extern inline intmax_t imaxnegativeAbs(intmax_t);
 
-extern inline int (sign)(int);
-extern inline int lsign(long);
-extern inline int llsign(llong);
-extern inline int imaxsign(intmax_t);
-
-extern inline int (sign)(int);
-extern inline int lsign(long);
-extern inline int llsign(llong);
-extern inline int imaxsign(intmax_t);
+extern inline int (sign)(int) [[unsequenced]];
+extern inline int lsign(long) [[unsequenced]];
+extern inline int llsign(llong) [[unsequenced]];
+extern inline int imaxsign(intmax_t) [[unsequenced]];
 
 extern inline uint (unsignedAbs)(int);
 extern inline ulong lunsignedAbs(long);

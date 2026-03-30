@@ -29,6 +29,10 @@
 
 #define EUCLID_DIV(x, y) ((x) / (y) + ((x) % (y) < 0 ? 0 < (y) ? -1 : 1 : 0))
 #define EUCLID_MOD(x, y) ((x) % (y) < 0 ? (y) < 0 ? (x) % (y) - (y) : (x) % (y) + (y) : (x) % (y))
+/*
+#define EUCLID_MOD(x, y) ((x) % (y) < 0 ? (x) % (y) - NEGATIVE_ABS(y) : (x) % (y))
+#define EUCLID_MOD(x, y) ((x) % (y) - ((x) % (y) < 0 ? NEGATIVE_ABS(y) : INTMAX_C(0)))
+*/
 #define MIDPOINT(x, y) ((y) < (x) ? MIDPOINT_CEIL(x, y) : MIDPOINT_FLOOR(x, y))
 /*
 #define MIDPOINT(x, y) (MIDPOINT_FLOOR(x, y) + (((x) > (y)) & ((x) ^ (y))))
@@ -970,19 +974,19 @@ inline intmax_t imaxicopysign(
     return y < INTMAX_C(0) ? negativeAbs(x) : abs(x);
 }
 
-inline int sign(register const int x) {
+inline int sign(register const int x) [[unsequenced]] {
     return compare(x, 0);
 }
 
-inline int lsign(register const long x) {
+inline int lsign(register const long x) [[unsequenced]] {
     return compare(x, 0L);
 }
 
-inline int llsign(register const llong x) {
+inline int llsign(register const llong x) [[unsequenced]] {
     return compare(x, 0LL);
 }
 
-inline int imaxsign(register const intmax_t x) {
+inline int imaxsign(register const intmax_t x) [[unsequenced]] {
     return compare(x, INTMAX_C(0));
 }
 

@@ -14,11 +14,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-AR=ar
-CC=gcc
-RM=rm -frd
-ARFLAGS=-rcs
-CFLAGS=-I ./include -Wabi -Wall -Walloc-zero -Walloca -Wanalyzer-too-complex   \
+AR::=ar
+CC::=gcc
+RM::=rm -frd
+ARFLAGS::=-rcs
+CFLAGS::=-I ./include -Wabi -Wall -Walloc-zero -Walloca -Wanalyzer-too-complex \
     -Warith-conversion -Warray-bounds=2 -Wbad-function-cast -Wc++-compat       \
     -Wcast-align=strict -Wcast-qual -Wconversion -Wdate-time                   \
     -Wdisabled-optimization -Wdouble-promotion -Wduplicated-branches           \
@@ -31,21 +31,21 @@ CFLAGS=-I ./include -Wabi -Wall -Walloc-zero -Walloca -Wanalyzer-too-complex   \
     -Wshadow=global -Wshift-overflow=2 -Wstrict-overflow=5 -Wstrict-prototypes \
     -Wstringop-overflow=4 -Wswitch-default -Wswitch-enum -Wundef               \
     -Wunreachable-code -Wunsafe-loop-optimizations -Wunsuffixed-float-constants\
-    -Wunused-const-variable=2 -Wunused-macros -Wvector-operation-performance   \
-    -Wvla -Wwrite-strings -fanalyzer -finput-charset=UTF-8 -pedantic-errors    \
-    -std=c23
+    -Wunused-const-variable=2 -Wunused-macros -Wuse-after-free=3               \
+    -Wvector-operation-performance -Wvla -Wwrite-strings -fanalyzer            \
+    -finput-charset=UTF-8 -pedantic-errors -std=c23
 # -Waggregate-return -Wanalyzer-symbol-too-complex -Wattribute-alias=2
 # -Wbidi-chars=any,ucn -Wdeclaration-after-statement -Winvalid-utf8
 # -Wopenacc-parallelism -Wstack-protector -Wsystem-headers -Wtraditional
 # -Wtraditional-conversion -Wtrampolines -Wtrivial-auto-var-init
-LDFLAGS=
-LDLIBS=-lm
+LDFLAGS::=
+LDLIBS::=-lm
 SOURCES::=$(shell find ./src -name '*.c' -type f -print)
 HEADERS::=$(shell find ./include -name '*.h' -type f -print)
-OBJECTS::=$(SOURCES:.c=.o)
-LIBRARY::=libc-commons.a
+OBJECTS::=$(patsubst ./src/%.c, ./build/%.o, $(SOURCES))
+LIBRARY::=./build/libc-commons.a
 TEST_SOURCES::=$(shell find ./test -name '*.test.c' -type f -print)
-TEST_EXECUTABLE::=$(TEST_SOURCES:.c=)
+TEST_EXECUTABLE::=$(patsubst ./test/%.c, ./build/%, $(TEST_SOURCES))
 
 .PHONY: all clean debug release
 
@@ -61,10 +61,10 @@ release: all
 $(LIBRARY): $(OBJECTS)
 	$(CC) $(LDFLAGS) $(OBJECTS) $(LDLIBS) -o $@
 
-%.o: %.c
+./build/%.o: ./src/%.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
-%: %.c $(OBJECTS)
+./build/%: ./src/%.c $(OBJECTS)
 	$(CC) $(CFLAGS) $(OBJECTS) $< -o $@
 
 check: $(TEST_EXECUTABLE)
