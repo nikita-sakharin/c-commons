@@ -249,6 +249,27 @@ inline uintmax_t umaxceilDiv(
 
 #define ceilDiv(x, y) TYPE_GENERIC_INTEGER_2(ceilDiv, x, y)
 
+inline bool isSameSign(register const int x, register const int y) {
+    return (x ^ y) >= 0;
+}
+
+inline bool lisSameSign(register const long x, register const long y) {
+    return (x ^ y) >= 0L;
+}
+
+inline bool llisSameSign(register const llong x, register const llong y) {
+    return (x ^ y) >= 0LL;
+}
+
+inline bool imaxisSameSign(
+    register const intmax_t x,
+    register const intmax_t y
+) {
+    return (x ^ y) >= INTMAX_C(0);
+}
+
+#define isSameSign(x, y) TYPE_GENERIC_SIGNED_INTEGER_2(isSameSign, x, y)
+
 inline int ceilMod(register const int x, register const int y) {
     assert(y != 0);
     register const int mod = x % y;
@@ -777,27 +798,6 @@ inline bool umaxisOdd(register const uintmax_t x) {
 }
 
 #define isOdd(x) TYPE_GENERIC_INTEGER_1(isOdd, x)
-
-inline bool isSameSign(register const int x, register const int y) {
-    return (x ^ y) >= 0;
-}
-
-inline bool lisSameSign(register const long x, register const long y) {
-    return (x ^ y) >= 0L;
-}
-
-inline bool llisSameSign(register const llong x, register const llong y) {
-    return (x ^ y) >= 0LL;
-}
-
-inline bool imaxisSameSign(
-    register const intmax_t x,
-    register const intmax_t y
-) {
-    return (x ^ y) >= INTMAX_C(0);
-}
-
-#define isSameSign(x, y) TYPE_GENERIC_SIGNED_INTEGER_2(isSameSign, x, y)
 
 inline int max(register const int x, register const int y) {
     return MAX(x, y);
