@@ -951,6 +951,8 @@ inline intmax_t imaxnegativeAbs(register const intmax_t x) {
     return x > INTMAX_C(0) ? -x : x;
 }
 
+#define negativeAbs(x) TYPE_GENERIC_SIGNED_INTEGER_1(negativeAbs, x)
+
 inline int icopysign(register const int x, register const int y) {
     assert(x != INT_MIN || y < 0);
     return y < 0 ? negativeAbs(x) : abs(x);
@@ -973,6 +975,8 @@ inline intmax_t imaxicopysign(
     assert(x != INTMAX_MIN || y < INTMAX_C(0));
     return y < INTMAX_C(0) ? negativeAbs(x) : abs(x);
 }
+
+#define icopysign(x, y) TYPE_GENERIC_SIGNED_INTEGER_2(icopysign, x, y)
 
 inline int sign(register const int x) [[unsequenced]] {
     return compare(x, 0);
@@ -1013,8 +1017,6 @@ inline uintmax_t imaxunsignedAbs(register const intmax_t x) {
 #define euclidMod(x, y) TYPE_GENERIC_INTEGER_2(euclidMod, x, y)
 #define floorDiv(x, y) TYPE_GENERIC_INTEGER_2(floorDiv, x, y)
 #define floorMod(x, y) TYPE_GENERIC_INTEGER_2(floorMod, x, y)
-#define icopysign(x, y) TYPE_GENERIC_SIGNED_INTEGER_2(icopysign, x, y)
-#define negativeAbs(x) TYPE_GENERIC_SIGNED_INTEGER_1(negativeAbs, x)
 #define sign(x) TYPE_GENERIC_SIGNED_INTEGER_1(sign, x)
 
 #endif // C_COMMONS_ARITHMETIC_H
