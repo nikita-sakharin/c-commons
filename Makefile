@@ -15,7 +15,7 @@
 # limitations under the License.
 #
 AR::=ar
-CC::=gcc
+CC?=gcc
 RM::=rm -frd
 ARFLAGS::=-rcs
 CFLAGS::=-I ./include -Wabi -Wall -Walloc-zero -Walloca -Wanalyzer-too-complex \
