@@ -17,15 +17,23 @@ name: 'C/C++ CI'
 
 on:
   push:
-    branches: [ 'master' ]
+    branches:
+      - 'master'
   pull_request:
-    branches: [ 'master' ]
+    branches:
+      - 'master'
 
 jobs:
   build:
     runs-on: 'ubuntu-latest'
     steps:
     - uses: actions/checkout@v5
+    - name: Install GCC 15 manually
+      run: |
+        sudo add-apt-repository --yes --update ppa:ubuntu-toolchain-r/test
+        sudo apt-get update
+        sudo apt-get install -y gcc-15
+        echo "CC=gcc-15" >> $GITHUB_ENV
     - name: 'make'
       run: make
     - name: 'make check'
