@@ -37,7 +37,7 @@ inline int ptrCompare(
     return COMPARE((const char *) ptr1, (const char *) ptr2);
 }
 
-inline ptrdiff_t ptrDifference(
+inline ptrdiff_t ptrCount(
     register const void * const ptr1,
     register const void * const ptr2,
     register const size_t size
@@ -47,7 +47,18 @@ inline ptrdiff_t ptrDifference(
         && sign((const char *) ptr1 - (const char *) ptr2) == COMPARE(ptr1, ptr2)
         && ((const char *) ptr1 - (const char *) ptr2) % (ptrdiff_t) size == 0
     );
-    return ((const char *) ptr1 - (const char *) ptr2) / (ptrdiff_t) size;
+    return ptrDifference(ptr1, ptr2) / (ptrdiff_t) size;
+}
+
+inline ptrdiff_t ptrDifference(
+    register const void * const ptr1,
+    register const void * const ptr2
+) {
+    assert((ptr1 == NULL) == (ptr2 == NULL)
+        && (const char *) ptr1 - (const char *) ptr2 != PTRDIFF_MIN
+        && sign((const char *) ptr1 - (const char *) ptr2) == COMPARE(ptr1, ptr2)
+    );
+    return (const char *) ptr1 - (const char *) ptr2;
 }
 
 inline void *ptrMax(

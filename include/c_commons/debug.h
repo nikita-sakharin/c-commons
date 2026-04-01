@@ -23,12 +23,17 @@
 
 #include <c_commons/arithmetic.h> // between
 
+// isCount
+inline bool checkCount(register const size_t count) {
+    return count <= PTRDIFF_MAX;
+}
+
 // isMemory
 inline bool checkMemory(
     register const void * const src,
     register const size_t n
 ) {
-    return src != NULL && n <= PTRDIFF_MAX
+    return src != NULL && checkCount(n)
         && (const char *) src <= (const char *) src + n;
 }
 

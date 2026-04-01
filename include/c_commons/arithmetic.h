@@ -473,6 +473,8 @@ inline uintmax_t umaxdim(
     return DIM(x, y);
 }
 
+#define dim(x, y) TYPE_GENERIC_INTEGER_2(dim, x, y)
+
 inline int euclidDiv(register const int x, register const int y) {
     assert(y != 0);
     return EUCLID_DIV(x, y);
@@ -611,6 +613,8 @@ inline uintmax_t umaxfloorDiv(
     return x / y;
 }
 
+#define floorDiv(x, y) TYPE_GENERIC_INTEGER_2(floorDiv, x, y)
+
 inline int floorMod(register const int x, register const int y) {
     assert(y != 0);
     return FLOOR_MOD(x, y);
@@ -656,6 +660,8 @@ inline uintmax_t umaxfloorMod(
     assert(y != UINTMAX_C(0));
     return x % y;
 }
+
+#define floorMod(x, y) TYPE_GENERIC_INTEGER_2(floorMod, x, y)
 
 inline bool inRange(
     register const int x,
@@ -994,6 +1000,8 @@ inline int imaxsign(register const intmax_t x) [[unsequenced]] {
     return compare(x, INTMAX_C(0));
 }
 
+#define sign(x) TYPE_GENERIC_SIGNED_INTEGER_1(sign, x)
+
 inline uint unsignedAbs(register const int x) {
     return x < 0 ? -(uint) x : (uint) x;
 }
@@ -1012,11 +1020,7 @@ inline uintmax_t imaxunsignedAbs(register const intmax_t x) {
 
 #define unsignedAbs(x) TYPE_GENERIC_SIGNED_INTEGER_1(unsignedAbs, x)
 
-#define dim(x, y) TYPE_GENERIC_INTEGER_2(dim, x, y)
 #define euclidDiv(x, y) TYPE_GENERIC_INTEGER_2(euclidDiv, x, y)
 #define euclidMod(x, y) TYPE_GENERIC_INTEGER_2(euclidMod, x, y)
-#define floorDiv(x, y) TYPE_GENERIC_INTEGER_2(floorDiv, x, y)
-#define floorMod(x, y) TYPE_GENERIC_INTEGER_2(floorMod, x, y)
-#define sign(x) TYPE_GENERIC_SIGNED_INTEGER_1(sign, x)
 
 #endif // C_COMMONS_ARITHMETIC_H
