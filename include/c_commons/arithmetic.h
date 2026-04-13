@@ -131,7 +131,7 @@ inline bool between(
     register const int x,
     register const int a,
     register const int b
-) {
+) [[unsequenced]] {
     assert(a <= b);
     return BETWEEN(x, a, b);
 }
@@ -140,7 +140,7 @@ inline bool ubetween(
     register const uint x,
     register const uint a,
     register const uint b
-) {
+) [[unsequenced]] {
     assert(a <= b);
     return BETWEEN(x, a, b);
 }
@@ -149,7 +149,7 @@ inline bool lbetween(
     register const long x,
     register const long a,
     register const long b
-) {
+) [[unsequenced]] {
     assert(a <= b);
     return BETWEEN(x, a, b);
 }
@@ -158,7 +158,7 @@ inline bool ulbetween(
     register const ulong x,
     register const ulong a,
     register const ulong b
-) {
+) [[unsequenced]] {
     assert(a <= b);
     return BETWEEN(x, a, b);
 }
@@ -167,7 +167,7 @@ inline bool llbetween(
     register const llong x,
     register const llong a,
     register const llong b
-) {
+) [[unsequenced]] {
     assert(a <= b);
     return BETWEEN(x, a, b);
 }
@@ -176,7 +176,7 @@ inline bool ullbetween(
     register const ullong x,
     register const ullong a,
     register const ullong b
-) {
+) [[unsequenced]] {
     assert(a <= b);
     return BETWEEN(x, a, b);
 }
@@ -185,7 +185,7 @@ inline bool imaxbetween(
     register const intmax_t x,
     register const intmax_t a,
     register const intmax_t b
-) {
+) [[unsequenced]] {
     assert(a <= b);
     return BETWEEN(x, a, b);
 }
@@ -194,7 +194,7 @@ inline bool umaxbetween(
     register const uintmax_t x,
     register const uintmax_t a,
     register const uintmax_t b
-) {
+) [[unsequenced]] {
     assert(a <= b);
     return BETWEEN(x, a, b);
 }
@@ -307,7 +307,7 @@ inline int clamp(
     register const int x,
     register const int a,
     register const int b
-) {
+) [[unsequenced]] {
     assert(a <= b);
     return CLAMP(x, a, b);
 }
@@ -316,7 +316,7 @@ inline uint uclamp(
     register const uint x,
     register const uint a,
     register const uint b
-) {
+) [[unsequenced]] {
     assert(a <= b);
     return CLAMP(x, a, b);
 }
@@ -325,7 +325,7 @@ inline long lclamp(
     register const long x,
     register const long a,
     register const long b
-) {
+) [[unsequenced]] {
     assert(a <= b);
     return CLAMP(x, a, b);
 }
@@ -334,7 +334,7 @@ inline ulong ulclamp(
     register const ulong x,
     register const ulong a,
     register const ulong b
-) {
+) [[unsequenced]] {
     assert(a <= b);
     return CLAMP(x, a, b);
 }
@@ -343,7 +343,7 @@ inline llong llclamp(
     register const llong x,
     register const llong a,
     register const llong b
-) {
+) [[unsequenced]] {
     assert(a <= b);
     return CLAMP(x, a, b);
 }
@@ -352,7 +352,7 @@ inline ullong ullclamp(
     register const ullong x,
     register const ullong a,
     register const ullong b
-) {
+) [[unsequenced]] {
     assert(a <= b);
     return CLAMP(x, a, b);
 }
@@ -361,7 +361,7 @@ inline intmax_t imaxclamp(
     register const intmax_t x,
     register const intmax_t a,
     register const intmax_t b
-) {
+) [[unsequenced]] {
     assert(a <= b);
     return CLAMP(x, a, b);
 }
@@ -370,7 +370,7 @@ inline uintmax_t umaxclamp(
     register const uintmax_t x,
     register const uintmax_t a,
     register const uintmax_t b
-) {
+) [[unsequenced]] {
     assert(a <= b);
     return CLAMP(x, a, b);
 }
@@ -380,56 +380,56 @@ inline uintmax_t umaxclamp(
 inline int compare(
     register const int x,
     register const int y
-) {
+) [[unsequenced]] {
     return COMPARE(x, y);
 }
 
 inline int ucompare(
     register const uint x,
     register const uint y
-) {
+) [[unsequenced]] {
     return COMPARE(x, y);
 }
 
 inline int lcompare(
     register const long x,
     register const long y
-) {
+) [[unsequenced]] {
     return COMPARE(x, y);
 }
 
 inline int ulcompare(
     register const ulong x,
     register const ulong y
-) {
+) [[unsequenced]] {
     return COMPARE(x, y);
 }
 
 inline int llcompare(
     register const llong x,
     register const llong y
-) {
+) [[unsequenced]] {
     return COMPARE(x, y);
 }
 
 inline int ullcompare(
     register const ullong x,
     register const ullong y
-) {
+) [[unsequenced]] {
     return COMPARE(x, y);
 }
 
 inline int imaxcompare(
     register const intmax_t x,
     register const intmax_t y
-) {
+) [[unsequenced]] {
     return COMPARE(x, y);
 }
 
 inline int umaxcompare(
     register const uintmax_t x,
     register const uintmax_t y
-) {
+) [[unsequenced]] {
     return COMPARE(x, y);
 }
 
@@ -667,7 +667,7 @@ inline bool inRange(
     register const int x,
     register const int a,
     register const int b
-) {
+) [[unsequenced]] {
     assert(a <= b);
     return IN_RANGE(x, a, b);
 }
@@ -676,7 +676,7 @@ inline bool uinRange(
     register const uint x,
     register const uint a,
     register const uint b
-) {
+) [[unsequenced]] {
     assert(a <= b);
     return IN_RANGE(x, a, b);
 }
@@ -685,7 +685,7 @@ inline bool linRange(
     register const long x,
     register const long a,
     register const long b
-) {
+) [[unsequenced]] {
     assert(a <= b);
     return IN_RANGE(x, a, b);
 }
@@ -694,7 +694,7 @@ inline bool ulinRange(
     register const ulong x,
     register const ulong a,
     register const ulong b
-) {
+) [[unsequenced]] {
     assert(a <= b);
     return IN_RANGE(x, a, b);
 }
@@ -703,7 +703,7 @@ inline bool llinRange(
     register const llong x,
     register const llong a,
     register const llong b
-) {
+) [[unsequenced]] {
     assert(a <= b);
     return IN_RANGE(x, a, b);
 }
@@ -712,7 +712,7 @@ inline bool ullinRange(
     register const ullong x,
     register const ullong a,
     register const ullong b
-) {
+) [[unsequenced]] {
     assert(a <= b);
     return IN_RANGE(x, a, b);
 }
@@ -721,7 +721,7 @@ inline bool imaxinRange(
     register const intmax_t x,
     register const intmax_t a,
     register const intmax_t b
-) {
+) [[unsequenced]] {
     assert(a <= b);
     return IN_RANGE(x, a, b);
 }
@@ -730,7 +730,7 @@ inline bool umaxinRange(
     register const uintmax_t x,
     register const uintmax_t a,
     register const uintmax_t b
-) {
+) [[unsequenced]] {
     assert(a <= b);
     return IN_RANGE(x, a, b);
 }
