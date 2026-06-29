@@ -1,7 +1,7 @@
 # `arithmetic.h`:<br/>
 `multiplyHigh` (~~`mulHi`~~)<br/>
 `isMultipleOf`, `nextMultipleOf`, `prevMultipleOf`<br/>
-[`icopysign`](https://gcc.gnu.org/onlinedocs/gfortran/SIGN.html)<br/>
+`icopysign`[C#](https://learn.microsoft.com/ru-ru/dotnet/api/system.intptr.copysign), [Fortran](https://gcc.gnu.org/onlinedocs/gfortran/SIGN.html)<br/>
 `isignbit` (docs.gl, nvidia.com, [OpenCL](https://registry.khronos.org/OpenCL/specs/3.0-unified/html/OpenCL_C.html), [NumPy](https://numpy.org/doc/stable/reference/generated/numpy.signbit.html), opencl.org, vulkan.org)<br/>
 `ceilDivMod`, `euclidDivMod`, `floorDivMod`
 `toSigned`, `toUnsigned`
