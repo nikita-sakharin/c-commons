@@ -1,9 +1,13 @@
 # `arithmetic.h`:<br/>
 `multiplyHigh` (~~`mulHi`~~)<br/>
 `isMultipleOf`, `nextMultipleOf`, `prevMultipleOf`<br/>
-`icopysign`[C#](https://learn.microsoft.com/ru-ru/dotnet/api/system.intptr.copysign), [Fortran](https://gcc.gnu.org/onlinedocs/gfortran/SIGN.html)<br/>
-`isignbit` (docs.gl, nvidia.com, [OpenCL](https://registry.khronos.org/OpenCL/specs/3.0-unified/html/OpenCL_C.html), [NumPy](https://numpy.org/doc/stable/reference/generated/numpy.signbit.html), opencl.org, vulkan.org)<br/>
-`ceilDivMod`, `euclidDivMod`, `floorDivMod`
+`icopysign` ([C#](https://learn.microsoft.com/ru-ru/dotnet/api/system.intptr.copysign), [Fortran](https://gcc.gnu.org/onlinedocs/gfortran/SIGN.html))<br/>
+`isNegative`, `isPositive` или `isignbit`:
+- `isNegative` ([C#](https://learn.microsoft.com/ru-ru/dotnet/api/system.intptr.isnegative), [Rust](https://doc.rust-lang.org/std/primitive.isize.html#method.is_negative))<br/>
+- `isPositive` ([C#](https://learn.microsoft.com/ru-ru/dotnet/api/system.intptr.ispositive), [Rust](https://doc.rust-lang.org/std/primitive.isize.html#method.is_positive))<br/>
+- `isignbit` (docs.gl, nvidia.com, [OpenCL](https://registry.khronos.org/OpenCL/specs/3.0-unified/html/OpenCL_C.html), [NumPy](https://numpy.org/doc/stable/reference/generated/numpy.signbit.html), [PyTorch](https://docs.pytorch.org/docs/stable/generated/torch.signbit.html), vulkan.org)
+
+`ceilDivMod`, `euclidDivMod`, `floorDivMod`<br/>
 `toSigned`, `toUnsigned`
 
 - [ISO/IEC Part 1: Integer and floating point arithmetic](http://www.open-std.org/jtc1/sc22/wg11/docs/n519.pdf)
