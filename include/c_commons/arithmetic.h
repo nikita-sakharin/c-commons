@@ -270,38 +270,87 @@ inline bool imaxisSameSign(
 
 #define isSameSign(x, y) TYPE_GENERIC_SIGNED_INTEGER_2(isSameSign, x, y)
 
-inline int ceilMod(register const int x, register const int y) {
+inline int ceilMod(
+    register const int x,
+    register const int y
+) [[unsequenced]] {
     assert(y != 0);
     register const int mod = x % y;
     return isSameSign(x, y) && mod != 0 ? mod - y : mod;
     // return !isSameSign(x, y) || mod == 0 ? mod : mod - y;
 }
 
-inline long lceilMod(register const long x, register const long y) {
+inline uint uceilMod(
+    register const uint x,
+    register const uint y
+) [[unsequenced]] {
+    assert(y != 0U);
+    register const uint mod = x % y;
+    return mod != 0U ? mod - y : mod;
+    // return mod == 0U ? mod : mod - y;
+}
+
+inline long lceilMod(
+    register const long x,
+    register const long y
+) [[unsequenced]] {
     assert(y != 0L);
     register const long mod = x % y;
     return isSameSign(x, y) && mod != 0L ? mod - y : mod;
     // return !isSameSign(x, y) || mod == 0L ? mod : mod - y;
 }
 
-inline llong llceilMod(register const llong x, register const llong y) {
+inline ulong ulceilMod(
+    register const ulong x,
+    register const ulong y
+) [[unsequenced]] {
+    assert(y != 0UL);
+    register const ulong mod = x % y;
+    return mod != 0UL ? mod - y : mod;
+    // return mod == 0UL ? mod : mod - y;
+}
+
+inline llong llceilMod(
+    register const llong x,
+    register const llong y
+) [[unsequenced]] {
     assert(y != 0LL);
     register const llong mod = x % y;
     return isSameSign(x, y) && mod != 0LL ? mod - y : mod;
     // return !isSameSign(x, y) || mod == 0LL ? mod : mod - y;
 }
 
+inline ullong ullceilMod(
+    register const ullong x,
+    register const ullong y
+) [[unsequenced]] {
+    assert(y != 0ULL);
+    register const ullong mod = x % y;
+    return mod != 0ULL ? mod - y : mod;
+    // return mod == 0ULL ? mod : mod - y;
+}
+
 inline intmax_t imaxceilMod(
     register const intmax_t x,
     register const intmax_t y
-) {
+) [[unsequenced]] {
     assert(y != INTMAX_C(0));
     register const intmax_t mod = x % y;
     return isSameSign(x, y) && mod != INTMAX_C(0) ? mod - y : mod;
     // return !isSameSign(x, y) || mod == INTMAX_C(0) ? mod : mod - y;
 }
 
-#define ceilMod(x, y) TYPE_GENERIC_SIGNED_INTEGER_2(ceilMod, x, y)
+inline uintmax_t umaxceilMod(
+    register const uintmax_t x,
+    register const uintmax_t y
+) [[unsequenced]] {
+    assert(y != UINTMAX_C(0));
+    register const uintmax_t mod = x % y;
+    return mod != UINTMAX_C(0) ? mod - y : mod;
+    // return mod == UINTMAX_C(0) ? mod : mod - y;
+}
+
+#define ceilMod(x, y) TYPE_GENERIC_INTEGER_2(ceilMod, x, y)
 
 inline int clamp(
     register const int x,
