@@ -30,7 +30,7 @@ inline int ptrCompare(
     register const void * const ptr1,
     register const void * const ptr2
 ) {
-    assert((ptr1 == NULL) == (ptr2 == NULL)
+    assert((ptr1 == NULL) == (ptr2 == NULL) // TODO: `NULL` is lesser than any non-`NULL`?
         && (const char *) ptr1 - (const char *) ptr2 != PTRDIFF_MIN
         && sign((const char *) ptr1 - (const char *) ptr2) == COMPARE(ptr1, ptr2)
     );
