@@ -22,9 +22,10 @@
 #include <stdint.h> // PTRDIFF_MAX, PTRDIFF_MIN
 
 #include <c_commons/arithmetic.h> // between
+#include <c_commons/preprocessor.h> // COMPARE
 
 // isCount
-inline bool checkCount(register const size_t count) {
+inline bool checkCount(register const size_t count) [[unsequenced]] {
     return count <= PTRDIFF_MAX;
 }
 
@@ -32,7 +33,7 @@ inline bool checkCount(register const size_t count) {
 inline bool checkMemory(
     register const void * const src,
     register const size_t n
-) {
+) [[unsequenced]] {
     return src != NULL && checkCount(n)
         && (const char *) src <= (const char *) src + n;
 }
@@ -42,12 +43,23 @@ inline bool checkMemoryCompare(
     register const void * const src,
     register const size_t n,
     register int (* const compare)(const void *, const void *)
-) {
+) [[unsequenced]] {
     return checkMemory(src, n) && compare != NULL;
 }
 
+// isRange
+inline bool checkRange(
+    register const const void *ptr1,
+    register const const void *ptr2
+) [[unsequenced]] {
+    register const ptrdiff_t
+        difference = (const char *) ptr1 - (const char *) ptr2;
+    return (ptr1 == NULL) == (ptr2 == NULL) && difference != PTRDIFF_MIN
+        && sign(difference) == COMPARE(ptr1, ptr2);
+}
+
 // isSize
-inline bool checkSize(register const size_t size) {
+inline bool checkSize(register const size_t size) [[unsequenced]] {
     return between(size, 1U, PTRDIFF_MAX);
 }
 

@@ -23,17 +23,14 @@
 #include <stdlib.h> // abs
 
 #include <c_commons/arithmetic.h> // abs, sign
-#include <c_commons/debug.h> // checkSize
+#include <c_commons/debug.h> // checkRange, checkSize
 #include <c_commons/preprocessor.h> // MAX, MIN, COMPARE
 
 inline int ptrCompare(
     register const void * const ptr1,
     register const void * const ptr2
 ) [[unsequenced]] {
-    assert((ptr1 == NULL) == (ptr2 == NULL)
-        && (const char *) ptr1 - (const char *) ptr2 != PTRDIFF_MIN
-        && sign((const char *) ptr1 - (const char *) ptr2) == COMPARE(ptr1, ptr2)
-    );
+    assert(checkRange(ptr1, ptr2));
     return COMPARE((const char *) ptr1, (const char *) ptr2);
 }
 
@@ -42,9 +39,7 @@ inline ptrdiff_t ptrCount(
     register const void * const ptr2,
     register const size_t size
 ) [[unsequenced]] {
-    assert((ptr1 == NULL) == (ptr2 == NULL) && checkSize(size)
-        && (const char *) ptr1 - (const char *) ptr2 != PTRDIFF_MIN
-        && sign((const char *) ptr1 - (const char *) ptr2) == COMPARE(ptr1, ptr2)
+    assert(checkRange(ptr1, ptr2) && checkSize(size)
         && ((const char *) ptr1 - (const char *) ptr2) % (ptrdiff_t) size == 0
     );
     return ptrDifference(ptr1, ptr2) / (ptrdiff_t) size;
@@ -54,10 +49,7 @@ inline ptrdiff_t ptrDifference(
     register const void * const ptr1,
     register const void * const ptr2
 ) [[unsequenced]] {
-    assert((ptr1 == NULL) == (ptr2 == NULL)
-        && (const char *) ptr1 - (const char *) ptr2 != PTRDIFF_MIN
-        && sign((const char *) ptr1 - (const char *) ptr2) == COMPARE(ptr1, ptr2)
-    );
+    assert(checkRange(ptr1, ptr2));
     return (const char *) ptr1 - (const char *) ptr2;
 }
 
@@ -65,10 +57,7 @@ inline void *ptrMax(
     register const void * const ptr1,
     register const void * const ptr2
 ) [[unsequenced]] {
-    assert((ptr1 == NULL) == (ptr2 == NULL)
-        && (const char *) ptr1 - (const char *) ptr2 != PTRDIFF_MIN
-        && sign((const char *) ptr1 - (const char *) ptr2) == COMPARE(ptr1, ptr2)
-    );
+    assert(checkRange(ptr1, ptr2));
 #   ifdef __clang__
 #   pragma clang diagnostic push
 #   pragma clang diagnostic ignored "-Wcast-qual"
@@ -88,10 +77,7 @@ inline void *ptrMin(
     register const void * const ptr1,
     register const void * const ptr2
 ) [[unsequenced]] {
-    assert((ptr1 == NULL) == (ptr2 == NULL)
-        && (const char *) ptr1 - (const char *) ptr2 != PTRDIFF_MIN
-        && sign((const char *) ptr1 - (const char *) ptr2) == COMPARE(ptr1, ptr2)
-    );
+    assert(checkRange(ptr1, ptr2));
 #   ifdef __clang__
 #   pragma clang diagnostic push
 #   pragma clang diagnostic ignored "-Wcast-qual"
@@ -158,9 +144,7 @@ inline void *ptrMidpoint(
     register const void * const ptr2,
     register const size_t size
 ) [[unsequenced]] {
-    assert((ptr1 == NULL) == (ptr2 == NULL) && checkSize(size)
-        && (const char *) ptr1 - (const char *) ptr2 != PTRDIFF_MIN
-        && sign((const char *) ptr1 - (const char *) ptr2) == COMPARE(ptr1, ptr2)
+    assert(checkRange(ptr1, ptr2) && checkSize(size)
         && ((const char *) ptr1 - (const char *) ptr2) % (ptrdiff_t) size == 0
     );
     return ptrOffset(ptr1, ptrDifference(ptr2, ptr1, size) / 2, size);
