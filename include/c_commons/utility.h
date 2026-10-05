@@ -56,7 +56,7 @@ inline void *memSwap(
 #   else
     register size_t n
 #   endif
-) {
+) [[unsequenced]] {
     assert(s1 != NULL && s2 != NULL && n <= PTRDIFF_MAX
         && (char *) s1 <= (char *) s1 + n && (char *) s2 <= (char *) s2 + n
         && ((char *) s1 >= (char *) s2 + n || (char *) s2 >= (char *) s1 + n)

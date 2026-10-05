@@ -29,8 +29,8 @@
 inline int ptrCompare(
     register const void * const ptr1,
     register const void * const ptr2
-) {
-    assert((ptr1 == NULL) == (ptr2 == NULL) // TODO: `NULL` is lesser than any non-`NULL`?
+) [[unsequenced]] {
+    assert((ptr1 == NULL) == (ptr2 == NULL)
         && (const char *) ptr1 - (const char *) ptr2 != PTRDIFF_MIN
         && sign((const char *) ptr1 - (const char *) ptr2) == COMPARE(ptr1, ptr2)
     );
@@ -41,7 +41,7 @@ inline ptrdiff_t ptrCount(
     register const void * const ptr1,
     register const void * const ptr2,
     register const size_t size
-) {
+) [[unsequenced]] {
     assert((ptr1 == NULL) == (ptr2 == NULL) && checkSize(size)
         && (const char *) ptr1 - (const char *) ptr2 != PTRDIFF_MIN
         && sign((const char *) ptr1 - (const char *) ptr2) == COMPARE(ptr1, ptr2)
@@ -53,7 +53,7 @@ inline ptrdiff_t ptrCount(
 inline ptrdiff_t ptrDifference(
     register const void * const ptr1,
     register const void * const ptr2
-) {
+) [[unsequenced]] {
     assert((ptr1 == NULL) == (ptr2 == NULL)
         && (const char *) ptr1 - (const char *) ptr2 != PTRDIFF_MIN
         && sign((const char *) ptr1 - (const char *) ptr2) == COMPARE(ptr1, ptr2)
@@ -64,7 +64,7 @@ inline ptrdiff_t ptrDifference(
 inline void *ptrMax(
     register const void * const ptr1,
     register const void * const ptr2
-) {
+) [[unsequenced]] {
     assert((ptr1 == NULL) == (ptr2 == NULL)
         && (const char *) ptr1 - (const char *) ptr2 != PTRDIFF_MIN
         && sign((const char *) ptr1 - (const char *) ptr2) == COMPARE(ptr1, ptr2)
@@ -87,7 +87,7 @@ inline void *ptrMax(
 inline void *ptrMin(
     register const void * const ptr1,
     register const void * const ptr2
-) {
+) [[unsequenced]] {
     assert((ptr1 == NULL) == (ptr2 == NULL)
         && (const char *) ptr1 - (const char *) ptr2 != PTRDIFF_MIN
         && sign((const char *) ptr1 - (const char *) ptr2) == COMPARE(ptr1, ptr2)
@@ -111,7 +111,7 @@ inline void *ptrOffset(
     register const void * const ptr,
     register const ptrdiff_t off,
     register const size_t size
-) {
+) [[unsequenced]] {
     assert((ptr != NULL || off == 0) && off != PTRDIFF_MIN && checkSize(size)
         && abs(off) <= PTRDIFF_MAX / (ptrdiff_t) size
         && sign(off) == COMPARE((const char *) ptr, (const char *) ptr + off * size)
@@ -135,7 +135,7 @@ inline void *ptrOffset(
 inline void *ptrDecrement(
     register const void * const ptr,
     register const size_t size
-) {
+) [[unsequenced]] {
     assert(ptr != NULL && checkSize(size)
         && (const char *) ptr - size < (const char *) ptr
         && (const char *) ptr - size != NULL
@@ -146,7 +146,7 @@ inline void *ptrDecrement(
 inline void *ptrIncrement(
     register const void * const ptr,
     register const size_t size
-) {
+) [[unsequenced]] {
     assert(ptr != NULL && checkSize(size)
         && (const char *) ptr < (const char *) ptr + size
     );
@@ -157,7 +157,7 @@ inline void *ptrMidpoint(
     register const void * const ptr1,
     register const void * const ptr2,
     register const size_t size
-) {
+) [[unsequenced]] {
     assert((ptr1 == NULL) == (ptr2 == NULL) && checkSize(size)
         && (const char *) ptr1 - (const char *) ptr2 != PTRDIFF_MIN
         && sign((const char *) ptr1 - (const char *) ptr2) == COMPARE(ptr1, ptr2)
