@@ -21,7 +21,7 @@
 #include <stddef.h> // NULL, ptrdiff_t, size_t
 #include <stdint.h> // PTRDIFF_MAX, PTRDIFF_MIN
 
-#include <c_commons/arithmetic.h> // between
+#include <c_commons/arithmetic.h> // between, sign
 #include <c_commons/preprocessor.h> // COMPARE
 
 // isCount
@@ -49,8 +49,8 @@ inline bool checkMemoryCompare(
 
 // isRange
 inline bool checkRange(
-    register const const void *ptr1,
-    register const const void *ptr2
+    register const void * const ptr1,
+    register const void * const ptr2
 ) [[unsequenced]] {
     register const ptrdiff_t
         difference = (const char *) ptr1 - (const char *) ptr2;

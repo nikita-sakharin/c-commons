@@ -26,6 +26,8 @@
 #include <c_commons/debug.h> // checkRange, checkSize
 #include <c_commons/preprocessor.h> // MAX, MIN, COMPARE
 
+// ptrBetween, ptrClamp, ptrInRange
+
 inline int ptrCompare(
     register const void * const ptr1,
     register const void * const ptr2

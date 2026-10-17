@@ -104,6 +104,8 @@ inline bool memCompareSwap(
     return true;
 }
 
+// memMax, memMin
+
 /* inline void *arrayMidpoint(
     register const void * const restrict arr,
     register const size_t n, // ???
