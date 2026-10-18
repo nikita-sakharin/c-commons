@@ -24,30 +24,38 @@
 #include <c_commons/arithmetic.h> // between, sign
 #include <c_commons/preprocessor.h> // COMPARE
 
-// isCount
 inline bool checkCount(register const size_t count) [[unsequenced]] {
     return count <= PTRDIFF_MAX;
 }
 
-// isMemory
 inline bool checkMemory(
     register const void * const src,
     register const size_t n
 ) [[unsequenced]] {
+#   ifdef __clang__
+#   pragma clang diagnostic push
+#   pragma clang diagnostic ignored "-Wstrict-overflow"
+#   elifdef __GNUC__
+#   pragma GCC diagnostic push
+#   pragma GCC diagnostic ignored "-Wstrict-overflow"
+#   endif
     return src != NULL && checkCount(n)
         && (const char *) src <= (const char *) src + n;
+#   ifdef __clang__
+#   pragma clang diagnostic pop
+#   elifdef __GNUC__
+#   pragma GCC diagnostic pop
+#   endif
 }
 
-// isMemoryCompare
 inline bool checkMemoryCompare(
     register const void * const src,
     register const size_t n,
-    register int (* const compare)(const void *, const void *)
+    register int (* const cmp)(const void *, const void *)
 ) [[unsequenced]] {
-    return checkMemory(src, n) && compare != NULL;
+    return checkMemory(src, n) && cmp != NULL;
 }
 
-// isRange
 inline bool checkRange(
     register const void * const ptr1,
     register const void * const ptr2
@@ -58,7 +66,6 @@ inline bool checkRange(
         && sign(difference) == COMPARE(ptr1, ptr2);
 }
 
-// isSize
 inline bool checkSize(register const size_t size) [[unsequenced]] {
     return between(size, 1U, PTRDIFF_MAX);
 }

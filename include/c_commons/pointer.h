@@ -36,6 +36,14 @@ inline int ptrCompare(
     return COMPARE((const char *) ptr1, (const char *) ptr2);
 }
 
+inline ptrdiff_t ptrDifference(
+    register const void * const ptr1,
+    register const void * const ptr2
+) [[unsequenced]] {
+    assert(checkRange(ptr1, ptr2));
+    return (const char *) ptr1 - (const char *) ptr2;
+}
+
 inline ptrdiff_t ptrCount(
     register const void * const ptr1,
     register const void * const ptr2,
@@ -45,14 +53,6 @@ inline ptrdiff_t ptrCount(
         && ((const char *) ptr1 - (const char *) ptr2) % (ptrdiff_t) size == 0
     );
     return ptrDifference(ptr1, ptr2) / (ptrdiff_t) size;
-}
-
-inline ptrdiff_t ptrDifference(
-    register const void * const ptr1,
-    register const void * const ptr2
-) [[unsequenced]] {
-    assert(checkRange(ptr1, ptr2));
-    return (const char *) ptr1 - (const char *) ptr2;
 }
 
 inline void *ptrMax(
@@ -102,7 +102,7 @@ inline void *ptrOffset(
 ) [[unsequenced]] {
     assert((ptr != NULL || off == 0) && off != PTRDIFF_MIN && checkSize(size)
         && abs(off) <= PTRDIFF_MAX / (ptrdiff_t) size
-        && sign(off) == COMPARE((const char *) ptr, (const char *) ptr + off * size)
+        && sign(off) == COMPARE((const char *) ptr, (const char *) ptr + off * (ptrdiff_t) size)
         && (ptr == NULL || (const char *) ptr + off * size != NULL)
     );
 #   ifdef __clang__
