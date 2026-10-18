@@ -150,7 +150,7 @@ inline void *ptrMidpoint(
     assert(checkRange(ptr1, ptr2) && checkSize(size)
         && ((const char *) ptr1 - (const char *) ptr2) % (ptrdiff_t) size == 0
     );
-    return ptrOffset(ptr1, ptrDifference(ptr2, ptr1, size) / 2, size);
+    return ptrOffset(ptr1, ptrCount(ptr2, ptr1, size) / 2, size);
 }
 
 #endif // C_COMMONS_POINTER_H

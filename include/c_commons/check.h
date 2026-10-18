@@ -60,10 +60,12 @@ inline bool checkRange(
     register const void * const ptr1,
     register const void * const ptr2
 ) [[unsequenced]] {
+    if ((ptr1 == NULL) != (ptr2 == NULL))
+        return false;
+
     register const ptrdiff_t
         difference = (const char *) ptr1 - (const char *) ptr2;
-    return (ptr1 == NULL) == (ptr2 == NULL) && difference != PTRDIFF_MIN
-        && sign(difference) == COMPARE(ptr1, ptr2);
+    return difference != PTRDIFF_MIN && sign(difference) == COMPARE(ptr1, ptr2);
 }
 
 inline bool checkSize(register const size_t size) [[unsequenced]] {
