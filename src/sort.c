@@ -19,7 +19,7 @@
 #include <stdint.h> // PTRDIFF_MAX
 
 #include <c_commons/arithmetic.h> // max, min
-#include <c_commons/debug.h> // checkSize
+#include <c_commons/check.h> // checkSize
 #include <c_commons/sort.h> // bubbleSort
 #include <c_commons/utility.h> // elemCompareSwap
 

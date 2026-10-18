@@ -19,7 +19,7 @@
 #include <stdint.h> // PTRDIFF_MAX
 
 #include <c_commons/binary_search.h> // binarySearch
-#include <c_commons/debug.h> // checkSize
+#include <c_commons/check.h> // checkSize
 #include <c_commons/utility.h> // elemAt, ptrIncrement
 
 extern void *binarySearch(

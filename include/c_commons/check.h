@@ -14,8 +14,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#ifndef C_COMMONS_DEBUG_H
-#define C_COMMONS_DEBUG_H
+#ifndef C_COMMONS_CHECK_H
+#define C_COMMONS_CHECK_H
 
 #include <stdbool.h> // bool
 #include <stddef.h> // NULL, ptrdiff_t, size_t
@@ -70,4 +70,4 @@ inline bool checkSize(register const size_t size) [[unsequenced]] {
     return between(size, 1U, PTRDIFF_MAX);
 }
 
-#endif // C_COMMONS_DEBUG_H
+#endif // C_COMMONS_CHECK_H

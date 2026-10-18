@@ -17,10 +17,12 @@
 #include <stdbool.h> // bool
 #include <stddef.h> // ptrdiff_t, size_t
 
-#include <c_commons/debug.h> // *
+#include <c_commons/check.h> // *
 
+extern inline bool checkCount(size_t);
 extern inline bool checkMemory(const void *, size_t);
 extern inline bool checkMemoryCompare(const void *, size_t,
     int (*)(const void *, const void *)
 );
+extern inline bool checkRange(const void *, const void *);
 extern inline bool checkSize(size_t);

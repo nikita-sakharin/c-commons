@@ -25,7 +25,7 @@
 #include <string.h> // memcpy
 
 #include <c_commons/arithmetic.h> // max, min
-#include <c_commons/debug.h> // checkSize
+#include <c_commons/check.h> // checkSize
 #include <c_commons/pointer.h> // ptrOffset
 #include <c_commons/system_config.h> // LEVEL1_DCACHE_LINESIZE
 #include <c_commons/types.h> // uchar
