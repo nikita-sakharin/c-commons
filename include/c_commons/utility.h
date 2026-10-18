@@ -93,6 +93,7 @@ inline bool memCompareSwap(
     register const size_t n,
     register int (* const cmp)(const void *, const void *)
 ) {
+    // `cmp` is checked twice
     assert(checkMemoryCompare(s1, n, cmp) && checkMemoryCompare(s2, n, cmp)
         && ((char *) s1 >= (char *) s2 + n || (char *) s2 >= (char *) s1 + n)
     );

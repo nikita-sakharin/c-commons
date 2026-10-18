@@ -48,7 +48,7 @@ LIBRARY::=$(BUILDDIR)/libc-commons.a
 TEST_SOURCES::=$(shell find ./test -name '*.test.c' -type f -print)
 TEST_EXECUTABLE::=$(patsubst ./test/%.c, $(BUILDDIR)/%, $(TEST_SOURCES))
 
-.PHONY: all clean debug release
+.PHONY: all check clean debug distclean release
 
 all: $(SOURCES) $(LIBRARY)
 
@@ -74,3 +74,6 @@ check: $(TEST_EXECUTABLE)
 
 clean:
 	$(RM) $(OBJECTS) $(LIBRARY) $(TEST_EXECUTABLE)
+
+distclean:
+	$(RM) $(BUILDDIR)
