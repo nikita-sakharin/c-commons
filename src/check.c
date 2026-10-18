@@ -20,6 +20,7 @@
 #include <c_commons/check.h> // *
 
 extern inline bool checkCount(size_t);
+extern inline bool checkCountSize(size_t, size_t);
 extern inline bool checkMemory(const void *, size_t);
 extern inline bool checkMemoryCompare(const void *, size_t,
     int (*)(const void *, const void *)

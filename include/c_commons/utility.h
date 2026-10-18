@@ -25,7 +25,7 @@
 #include <string.h> // memcpy
 
 #include <c_commons/arithmetic.h> // max, min
-#include <c_commons/check.h> // checkSize
+#include <c_commons/check.h> // checkMemory, checkMemoryCompare, checkSize
 #include <c_commons/pointer.h> // ptrOffset
 #include <c_commons/system_config.h> // LEVEL1_DCACHE_LINESIZE
 #include <c_commons/types.h> // uchar
@@ -57,6 +57,7 @@ inline void *memSwap(
     register size_t n
 #   endif
 ) [[unsequenced]] {
+    // `n` and is checked twice
     assert(checkMemory(s1, n) && checkMemory(s2, n)
         && ((char *) s1 >= (char *) s2 + n || (char *) s2 >= (char *) s1 + n)
     );
@@ -93,7 +94,7 @@ inline bool memCompareSwap(
     register const size_t n,
     register int (* const cmp)(const void *, const void *)
 ) {
-    // `cmp` is checked twice
+    // `n` and `cmp` are checked twice
     assert(checkMemoryCompare(s1, n, cmp) && checkMemoryCompare(s2, n, cmp)
         && ((char *) s1 >= (char *) s2 + n || (char *) s2 >= (char *) s1 + n)
     );
@@ -103,7 +104,7 @@ inline bool memCompareSwap(
     return true;
 }
 
-// memMax, memMin
+// memCompareBetween, memCompareClamp, memCompareInRange
 
 /* inline void *arrayMidpoint(
     register const void * const restrict arr,

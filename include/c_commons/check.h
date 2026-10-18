@@ -28,6 +28,13 @@ inline bool checkCount(register const size_t count) [[unsequenced]] {
     return count <= PTRDIFF_MAX;
 }
 
+inline bool checkCountSize(
+    register const size_t count,
+    register const size_t size
+) [[unsequenced]] {
+    return checkCount(count) && checkSize(size) && count <= PTRDIFF_MAX / size;
+}
+
 inline bool checkMemory(
     register const void * const src,
     register const size_t n
