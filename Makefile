@@ -40,12 +40,13 @@ CFLAGS::=-I ./include -Wabi -Wall -Walloc-zero -Walloca -Wanalyzer-too-complex \
 # -Wtraditional-conversion -Wtrampolines -Wtrivial-auto-var-init
 LDFLAGS::=
 LDLIBS::=-lm
+BUILDDIR::=./build
 SOURCES::=$(shell find ./src -name '*.c' -type f -print)
 HEADERS::=$(shell find ./include -name '*.h' -type f -print)
-OBJECTS::=$(patsubst ./src/%.c, ./build/%.o, $(SOURCES))
-LIBRARY::=./build/libc-commons.a
+OBJECTS::=$(patsubst ./src/%.c, $(BUILDDIR)/%.o, $(SOURCES))
+LIBRARY::=$(BUILDDIR)/libc-commons.a
 TEST_SOURCES::=$(shell find ./test -name '*.test.c' -type f -print)
-TEST_EXECUTABLE::=$(patsubst ./test/%.c, ./build/%, $(TEST_SOURCES))
+TEST_EXECUTABLE::=$(patsubst ./test/%.c, $(BUILDDIR)/%, $(TEST_SOURCES))
 
 .PHONY: all clean debug release
 
@@ -57,14 +58,15 @@ release: CFLAGS+=-DNDEBUG -O3 -flto -march=native -mtune=native -s
 release: LDFLAGS+=-O3 -flto -march=native -mtune=native -s
 release: all
 
-# out-of-source `build` directory
 $(LIBRARY): $(OBJECTS)
 	$(CC) $(LDFLAGS) $(OBJECTS) $(LDLIBS) -o $@
 
-./build/%.o: ./src/%.c
+# TODO: call `mkdir` only once for each dir
+$(BUILDDIR)/%.o: ./src/%.c
+	mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) -c $< -o $@
 
-./build/%: ./src/%.c $(OBJECTS)
+$(BUILDDIR)/%: ./src/%.c $(OBJECTS)
 	$(CC) $(CFLAGS) $(OBJECTS) $< -o $@
 
 check: $(TEST_EXECUTABLE)
