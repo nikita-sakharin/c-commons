@@ -104,7 +104,7 @@ inline void *ptrOffset(
     assert((ptr != NULL || off == 0) && off != PTRDIFF_MIN && checkSize(size)
         && abs(off) <= PTRDIFF_MAX / (ptrdiff_t) size
         && sign(off) == COMPARE((const char *) ptr, (const char *) ptr + off * (ptrdiff_t) size)
-        && (ptr == NULL || (const char *) ptr + off * size != NULL)
+        && (ptr == NULL || (const char *) ptr + off * (ptrdiff_t) size != NULL)
     );
 #   ifdef __clang__
 #   pragma clang diagnostic push

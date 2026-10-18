@@ -28,13 +28,6 @@ inline bool checkCount(register const size_t count) [[unsequenced]] {
     return count <= PTRDIFF_MAX;
 }
 
-inline bool checkCountSize(
-    register const size_t count,
-    register const size_t size
-) [[unsequenced]] {
-    return checkCount(count) && checkSize(size) && count <= PTRDIFF_MAX / size;
-}
-
 inline bool checkMemory(
     register const void * const src,
     register const size_t n
@@ -75,6 +68,13 @@ inline bool checkRange(
 
 inline bool checkSize(register const size_t size) [[unsequenced]] {
     return between(size, 1U, PTRDIFF_MAX);
+}
+
+inline bool checkCountSize(
+    register const size_t count,
+    register const size_t size
+) [[unsequenced]] {
+    return checkCount(count) && checkSize(size) && count <= PTRDIFF_MAX / size;
 }
 
 #endif // C_COMMONS_CHECK_H
