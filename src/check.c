@@ -17,13 +17,14 @@
 #include <stdbool.h> // bool
 #include <stddef.h> // ptrdiff_t, size_t
 
-#include <c_commons/check.h> // *
+#include <c_commons/check.h> // check*
 
-extern inline bool checkCount(size_t);
-extern inline bool checkCountSize(size_t, size_t);
-extern inline bool checkMemory(const void *, size_t);
+extern inline bool checkCount(size_t) [[unsequenced]];
+extern inline bool checkCountSize(size_t, size_t) [[unsequenced]];
+extern inline bool checkMemory(const void *, size_t) [[unsequenced]];
 extern inline bool checkMemoryCompare(const void *, size_t,
     int (*)(const void *, const void *)
-);
-extern inline bool checkRange(const void *, const void *);
-extern inline bool checkSize(size_t);
+) [[unsequenced]];
+extern inline bool checkOffsetSize(ptrdiff_t, size_t) [[unsequenced]];
+extern inline bool checkRange(const void *, const void *) [[unsequenced]];
+extern inline bool checkSize(size_t) [[unsequenced]];

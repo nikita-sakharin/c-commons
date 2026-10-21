@@ -21,7 +21,7 @@
 #include <stddef.h> // NULL, ptrdiff_t, size_t
 #include <stdint.h> // PTRDIFF_MAX, PTRDIFF_MIN
 
-#include <c_commons/arithmetic.h> // between, sign
+#include <c_commons/arithmetic.h> // between, sign, uabs
 #include <c_commons/preprocessor.h> // COMPARE
 
 inline bool checkCount(register const size_t count) [[unsequenced]] {
@@ -56,6 +56,25 @@ inline bool checkMemoryCompare(
     return checkMemory(src, n) && cmp != NULL;
 }
 
+inline bool checkSize(register const size_t size) [[unsequenced]] {
+    return between(size, 1U, PTRDIFF_MAX);
+}
+
+inline bool checkCountSize(
+    register const size_t count,
+    register const size_t size
+) [[unsequenced]] {
+    // is `checkCount` mandatory
+    return checkCount(count) && checkSize(size) && count <= PTRDIFF_MAX / size;
+}
+
+inline bool checkOffsetSize(
+    register const ptrdiff_t off,
+    register const size_t size
+) [[unsequenced]] {
+    return checkCountSize(uabs(off), size);
+}
+
 inline bool checkRange(
     register const void * const ptr1,
     register const void * const ptr2
@@ -66,17 +85,6 @@ inline bool checkRange(
     register const ptrdiff_t
         difference = (const char *) ptr1 - (const char *) ptr2;
     return difference != PTRDIFF_MIN && sign(difference) == COMPARE(ptr1, ptr2);
-}
-
-inline bool checkSize(register const size_t size) [[unsequenced]] {
-    return between(size, 1U, PTRDIFF_MAX);
-}
-
-inline bool checkCountSize(
-    register const size_t count,
-    register const size_t size
-) [[unsequenced]] {
-    return checkCount(count) && checkSize(size) && count <= PTRDIFF_MAX / size;
 }
 
 #endif // C_COMMONS_CHECK_H

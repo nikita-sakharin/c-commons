@@ -122,7 +122,7 @@ inline void *elemAt(
     register const void * const arr,
     register const size_t idx,
     register const size_t size
-) {
+) [[unsequenced]] {
     assert(arr != NULL && checkSize(size) && idx < PTRDIFF_MAX / size
         && (const char *) arr < (const char *) arr + (idx + 1U) * size
     );
